@@ -1,12 +1,13 @@
 package org.burgers.spring.cache
 
 import org.springframework.stereotype.Component
+import org.springframework.cache.annotation.Cacheable
 
 @Component
 class MyServiceImpl implements MyService {
     Listener listener = new NoOpListener()
 
-    @Override
+    @Cacheable("words")
     int numberOfCharacters(String evaluatedString) {
         listener.listen()
 

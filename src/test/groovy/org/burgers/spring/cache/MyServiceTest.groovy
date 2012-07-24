@@ -24,7 +24,7 @@ class MyServiceTest {
         assert 4 == myService.numberOfCharacters("blah")
         assert countingListener.count == 1
         assert 4 == myService.numberOfCharacters("blah")
-        assert countingListener.count == 2
+        assert countingListener.count == 1
     }
 
     class CountingListener implements Listener {
