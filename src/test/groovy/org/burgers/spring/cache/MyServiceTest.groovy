@@ -6,6 +6,8 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.beans.factory.annotation.Autowired
 import org.junit.Test
 import org.junit.Before
+import org.burgers.spring.cache.example.Listener
+import org.burgers.spring.cache.example.MyService
 
 @RunWith(SpringJUnit4ClassRunner)
 @ContextConfiguration(locations = "classpath:contexts/ApplicationContext.xml")

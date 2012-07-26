@@ -1,4 +1,4 @@
-package org.burgers.spring.cache
+package org.burgers.spring.cache.example
 
 import org.springframework.stereotype.Component
 import org.springframework.cache.annotation.Cacheable

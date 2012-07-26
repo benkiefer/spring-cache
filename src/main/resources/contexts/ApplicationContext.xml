@@ -14,7 +14,7 @@
     <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
         <property name="caches">
             <set>
-               <bean class="org.springframework.cache.concurrent.ConcurrentMapCache">
+               <bean class="org.burgers.spring.cache.util.EntryDateTrackingCache">
                    <constructor-arg index="0" value="words"/>
                </bean>
             </set>
