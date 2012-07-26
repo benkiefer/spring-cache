@@ -20,7 +20,7 @@ class EntryDateTrackingCacheTest {
     @Test
     void deleteBefore() {
         cache.put("test", "one")
-        cache.clearAnythingOlderThan(0)
+        cache.clearAnythingOlderThan(-1)
         assert cache.getNativeCache().isEmpty()
     }
 
