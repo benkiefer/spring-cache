@@ -23,12 +23,21 @@ class EntryDateTrackingCache extends ConcurrentMapCache {
         super.put(key, new DateStampedValue(realValue: value))
     }
 
-    void clearBefore(Date date){
+    void clearAnythingOlderThan(int minutes){
+        Date expirationDate = getExpirationDate(minutes)
+
         def map = getNativeCache()
+
         map.each{key, DateStampedValue value ->
-            if (value.date.before(date))
+            if (value.date.before(expirationDate))
                 map.remove(key)
         }
+    }
+
+    private Date getExpirationDate(int minutes) {
+        def calendar = Calendar.getInstance()
+        calendar.add(Calendar.MINUTE, -minutes)
+        calendar.getTime()
     }
 
     @Override

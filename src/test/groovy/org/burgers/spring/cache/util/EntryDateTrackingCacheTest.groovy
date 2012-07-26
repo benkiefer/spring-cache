@@ -20,16 +20,14 @@ class EntryDateTrackingCacheTest {
     @Test
     void deleteBefore() {
         cache.put("test", "one")
-        Date date = new Date().plus(1)
-        cache.clearBefore(date)
+        cache.clearAnythingOlderThan(0)
         assert cache.getNativeCache().isEmpty()
     }
 
     @Test
     void deleteBefore_not_old_enough() {
         cache.put("test", "one")
-        Date date = new Date().minus(1)
-        cache.clearBefore(date)
+        cache.clearAnythingOlderThan(1)
         assert cache.getNativeCache().size() == 1
     }
 
