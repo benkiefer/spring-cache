@@ -7,5 +7,5 @@ interface CacheCleaner {
 
     void moreAdvancedCleaning()
 
-    void dateBasedCleaning()
+    void cleanExpiredRecords()
 }

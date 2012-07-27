@@ -6,6 +6,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
         http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
+    <context:property-placeholder location="classpath:env.properties"/>
 
     <context:component-scan base-package="org.burgers.spring.cache"/>
 
@@ -16,6 +17,8 @@
             <set>
                <bean class="org.burgers.spring.cache.util.EntryDateTrackingCache">
                    <constructor-arg index="0" value="words"/>
+                   <property name="timeUntilExpiration" value="${spring.cache.time.until.expiration}"/>
+                   <property name="unitOfMeasurement" value="${spring.cache.unit.of.measurement}"/>
                </bean>
             </set>
         </property>

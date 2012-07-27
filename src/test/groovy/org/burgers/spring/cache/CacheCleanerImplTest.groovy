@@ -7,19 +7,24 @@ import org.springframework.test.context.ContextConfiguration
 import org.junit.Test
 import org.springframework.cache.CacheManager
 import org.springframework.cache.Cache
-import org.springframework.beans.factory.annotation.Qualifier
-import org.burgers.spring.cache.example.cleaning.CacheCleaner;
+import org.burgers.spring.cache.example.cleaning.CacheCleaner
+import org.junit.Before;
 
 @RunWith(SpringJUnit4ClassRunner)
 @ContextConfiguration(locations = "classpath:contexts/ApplicationContext.xml")
 class CacheCleanerImplTest {
-    @Autowired
-    CacheCleaner cleaner
+    @Autowired CacheCleaner cleaner
     @Autowired CacheManager cacheManager
+    Cache cache
+
+    @Before
+    void setUp(){
+        cache = cacheManager.getCache("words")
+        cache.clear()
+    }
 
     @Test
     void clean(){
-        def cache = cacheManager.getCache("words")
         cache.put("1", "one")
 
         cleaner.clean()
@@ -29,7 +34,6 @@ class CacheCleanerImplTest {
 
     @Test
     void cleanWithAnnotation(){
-        def cache = cacheManager.getCache("words")
         cache.put("1", "one")
 
         cleaner.cleanWithAnnotations()
@@ -39,7 +43,6 @@ class CacheCleanerImplTest {
 
     @Test
     void moreAdvancedCleaning(){
-        def cache = cacheManager.getCache("words")
         cache.put("1", "one")
 
         cleaner.moreAdvancedCleaning()
@@ -52,15 +55,15 @@ class CacheCleanerImplTest {
 
     @Test
     void dateBasedCleaning(){
-        def cache = cacheManager.getCache("words")
         cache.put("1", "one")
 
-        cleaner.dateBasedCleaning()
+        cleaner.cleanExpiredRecords()
 
         assert cache.get("1").get() == "one"
 
-        cleaner.minutesInCache = 0
-        cleaner.dateBasedCleaning()
+        cache.timeUntilExpiration = 0
+
+        cleaner.cleanExpiredRecords()
 
         assert isCacheEmpty(cache)
     }

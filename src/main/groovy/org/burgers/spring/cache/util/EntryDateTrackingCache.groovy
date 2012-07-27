@@ -6,6 +6,9 @@ import org.springframework.cache.support.SimpleValueWrapper
 import org.springframework.cache.Cache.ValueWrapper
 
 class EntryDateTrackingCache extends ConcurrentMapCache {
+    int timeUntilExpiration
+    int unitOfMeasurement
+
     EntryDateTrackingCache(String name) {
         super(name)
     }
@@ -23,27 +26,27 @@ class EntryDateTrackingCache extends ConcurrentMapCache {
         super.put(key, new DateStampedValue(realValue: value))
     }
 
-    void clearAnythingOlderThan(int minutes){
-        Date expirationDate = getExpirationDate(minutes)
+    void clearExpiredRecords() {
+        Date expirationDate = getExpirationDate()
 
         def map = getNativeCache()
 
-        map.each{key, DateStampedValue value ->
+        map.each {key, DateStampedValue value ->
             if (value.date.before(expirationDate))
                 map.remove(key)
         }
     }
 
-    private Date getExpirationDate(int minutes) {
+    private Date getExpirationDate() {
         def calendar = Calendar.getInstance()
-        calendar.add(Calendar.MINUTE, -minutes)
+        calendar.add(unitOfMeasurement, -timeUntilExpiration)
         calendar.getTime()
     }
 
     @Override
     ValueWrapper get(Object key) {
         ValueWrapper value = super.get(key)
-        if (value){
+        if (value) {
             DateStampedValue wrappedValue = value.get()
             return new SimpleValueWrapper(wrappedValue.realValue)
         }

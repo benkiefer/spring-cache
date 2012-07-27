@@ -13,21 +13,27 @@ class EntryDateTrackingCacheTest {
 
     @Test
     void put_get() {
+        cache.timeUntilExpiration = 5
+        cache.unitOfMeasurement = Calendar.HOUR
         cache.put("test", "one")
         assert cache.get("test").get() == "one"
     }
 
     @Test
-    void deleteBefore() {
+    void clearExpiredRecords() {
+        cache.timeUntilExpiration = -5
+        cache.unitOfMeasurement = Calendar.HOUR
         cache.put("test", "one")
-        cache.clearAnythingOlderThan(-1)
+        cache.clearExpiredRecords()
         assert cache.getNativeCache().isEmpty()
     }
 
     @Test
-    void deleteBefore_not_old_enough() {
+    void clearExpiredRecords_not_old_enough() {
+        cache.timeUntilExpiration = 5
+        cache.unitOfMeasurement = Calendar.HOUR
         cache.put("test", "one")
-        cache.clearAnythingOlderThan(1)
+        cache.clearExpiredRecords()
         assert cache.getNativeCache().size() == 1
     }
 

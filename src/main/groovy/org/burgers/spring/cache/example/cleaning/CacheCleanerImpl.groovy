@@ -8,7 +8,6 @@ import org.burgers.spring.cache.util.EntryDateTrackingCache
 
 @Component
 class CacheCleanerImpl implements CacheCleaner {
-    int minutesInCache = 5
     @Autowired
     CacheManager cacheManager
 
@@ -33,8 +32,8 @@ class CacheCleanerImpl implements CacheCleaner {
 
 
 //    create special type of cache that can be used to purge old records.
-    void dateBasedCleaning() {
+    void cleanExpiredRecords() {
         EntryDateTrackingCache cache = (EntryDateTrackingCache) cacheManager.getCache("words")
-        cache.clearAnythingOlderThan(minutesInCache)
+        cache.clearExpiredRecords()
     }
 }

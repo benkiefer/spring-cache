@@ -1,4 +1,4 @@
-package org.burgers.spring.cache.example
+package org.burgers.spring.cache.example.storage
 
 import org.springframework.stereotype.Component
 import org.springframework.cache.annotation.Cacheable
@@ -11,7 +11,7 @@ class MyServiceImpl implements MyService {
     int numberOfCharacters(String evaluatedString) {
         listener.listen()
 
-//        pretend this is some expensive operation that you'd want to cache.
+//        Pretend this is some expensive operation that you'd want to cache.
         evaluatedString.size();
     }
 
