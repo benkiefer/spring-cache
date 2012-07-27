@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.burgers.org/schema/cache" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified" targetNamespace="http://www.burgers.org/schema/cache">
+    <xs:element name="date-based-cache">
+        <xs:complexType>
+            <xs:attribute name="id" use="optional" type="xs:ID"/>
+            <xs:attribute name="name" use="required" type="xs:string"/>
+            <xs:attribute name="timeUntilExpiration" use="required" type="xs:string"/>
+            <xs:attribute name="unitOfMeasurement" use="required" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

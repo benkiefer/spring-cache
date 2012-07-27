@@ -1,9 +1,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns:caches="http://www.burgers.org/schema/cache"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.burgers.org/schema/cache http://www.burgers.org/schema/cache.xsd
         http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
     <context:property-placeholder location="classpath:env.properties"/>
@@ -12,14 +14,13 @@
 
     <cache:annotation-driven/>
 
+    <caches:date-based-cache id="words" name="words" timeUntilExpiration="${spring.cache.time.until.expiration}"
+                             unitOfMeasurement="${spring.cache.unit.of.measurement}"/>
+
     <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
         <property name="caches">
             <set>
-               <bean class="org.burgers.spring.cache.util.EntryDateTrackingCache">
-                   <constructor-arg index="0" value="words"/>
-                   <property name="timeUntilExpiration" value="${spring.cache.time.until.expiration}"/>
-                   <property name="unitOfMeasurement" value="${spring.cache.unit.of.measurement}"/>
-               </bean>
+                <ref bean="words"/>
             </set>
         </property>
     </bean>
