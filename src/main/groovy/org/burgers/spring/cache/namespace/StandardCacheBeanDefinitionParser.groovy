@@ -13,46 +13,14 @@ import org.springframework.cache.concurrent.ConcurrentMapCache
 import org.springframework.beans.factory.support.BeanDefinitionBuilder
 import org.springframework.beans.factory.support.BeanDefinitionRegistry
 
-class StandardCacheBeanDefinitionParser implements BeanDefinitionParser {
+class StandardCacheBeanDefinitionParser extends AbstractCacheBeanDefinitionParser {
     @Override
-    BeanDefinition parse(Element element, ParserContext parserContext) {
-        BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(ConcurrentMapCache.class)
-
-        prepareConstructorArgs(element, builder)
-
-        String beanId = calculateId(element, parserContext.registry)
-
-        parserContext.registerBeanComponent(new BeanComponentDefinition(builder.getBeanDefinition(), beanId))
-
-        null
+    Class getCacheClass() {
+        ConcurrentMapCache.class
     }
 
-    private String calculateId(Element element, BeanDefinitionRegistry registry) {
-        String beanId = "standardCache"
-
-        String id = element.getAttribute("id")
-        if (id) {
-            beanId = id
-        }
-
-        if (registry.containsBeanDefinition(beanId)){
-            beanId = beanId + "_${System.currentTimeMillis()}"
-        }
-
-        beanId
+    @Override
+    String getDefaultBeanName() {
+        "standardCache"
     }
-
-    private void prepareConstructorArgs(Element element, BeanDefinitionBuilder builder) {
-        builder.addConstructorArg(element.getAttribute("name"))
-
-        def allowNullValues = element.getAttribute("allowNullValues")
-        def store = element.getAttribute("store-ref")
-        if (allowNullValues && store) {
-            builder.addConstructorArgReference(store)
-            builder.addConstructorArg(allowNullValues)
-        } else if (allowNullValues && !store) {
-            builder.addConstructorArg(allowNullValues)
-        }
-    }
-
 }
