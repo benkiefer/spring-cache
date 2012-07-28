@@ -1,44 +1,25 @@
-package org.burgers.spring.cache.namespace
+package org.burgers.spring.cache.namespace.builders
 
+import org.burgers.spring.cache.namespace.util.BeanIdCalculator
 import org.springframework.beans.factory.config.BeanDefinition
-import org.springframework.beans.factory.parsing.BeanComponentDefinition
+
 import org.springframework.beans.factory.support.BeanDefinitionBuilder
-import org.springframework.beans.factory.support.BeanDefinitionRegistry
 import org.springframework.beans.factory.xml.BeanDefinitionParser
 import org.springframework.beans.factory.xml.ParserContext
 import org.w3c.dom.Element
 
-abstract class AbstractCacheBeanDefinitionParser implements BeanDefinitionParser {
-    abstract Class getCacheClass()
+abstract class CacheBeanDefinitionBuilder implements BeanDefinitionParser {
+    BeanIdCalculator calculator = new BeanIdCalculator()
+    abstract Class getBeanClass()
     abstract String getDefaultBeanName()
 
-    @Override
     BeanDefinition parse(Element element, ParserContext parserContext) {
-        BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(getCacheClass())
+        BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(getBeanClass())
 
         prepareProperties(element, builder)
         prepareConstructorArgs(element, builder)
 
-        String beanId = calculateId(element, parserContext.registry)
-
-        parserContext.registerBeanComponent(new BeanComponentDefinition(builder.getBeanDefinition(), beanId))
-
-        null
-    }
-
-    private String calculateId(Element element, BeanDefinitionRegistry registry) {
-        String beanId = getDefaultBeanName()
-
-        String id = element.getAttribute("id")
-        if (id) {
-            beanId = id
-        }
-
-        if (registry.containsBeanDefinition(beanId)) {
-            beanId = beanId + "_${System.currentTimeMillis()}"
-        }
-
-        beanId
+        builder.getBeanDefinition()
     }
 
     protected void prepareProperties(Element element, BeanDefinitionBuilder builder) {

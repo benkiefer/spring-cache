@@ -1,18 +1,19 @@
-package org.burgers.spring.cache.namespace
+package org.burgers.spring.cache.namespace.builders
 
-import org.burgers.spring.cache.util.EntryDateTrackingCache
 import org.springframework.beans.factory.support.BeanDefinitionBuilder
 import org.w3c.dom.Element
+import org.burgers.spring.cache.util.EntryDateTrackingCache
 
-class DateBasedCacheBeanDefinitionParser extends AbstractCacheBeanDefinitionParser {
+class DateBasedCacheBeanDefinitionBuilder extends CacheBeanDefinitionBuilder {
+
     @Override
-    Class getCacheClass() {
-        EntryDateTrackingCache.class
+    Class getBeanClass() {
+        EntryDateTrackingCache
     }
 
     @Override
     String getDefaultBeanName() {
-        "dateBasedCache"
+        return "dateBasedCache"
     }
 
     @Override

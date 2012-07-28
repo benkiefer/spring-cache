@@ -3,7 +3,7 @@
            elementFormDefault="qualified" targetNamespace="http://www.burgers.org/schema/cache">
     <xs:element name="date-based-cache">
         <xs:complexType>
-            <xs:attribute name="id" use="optional" type="xs:ID"/>
+            <xs:attribute name="id" use="optional" type="xs:string"/>
             <xs:attribute name="name" use="required" type="xs:string"/>
             <xs:attribute name="allowNullValues" use="optional" type="xs:boolean"/>
             <xs:attribute name="store-ref" use="optional" type="xs:string"/>
@@ -13,10 +13,22 @@
     </xs:element>
     <xs:element name="default">
         <xs:complexType>
-            <xs:attribute name="id" use="optional" type="xs:ID"/>
+            <xs:attribute name="id" use="optional" type="xs:string"/>
             <xs:attribute name="name" use="required" type="xs:string"/>
             <xs:attribute name="allowNullValues" use="optional" type="xs:boolean"/>
             <xs:attribute name="store-ref" use="optional" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="caching">
+        <xs:complexType>
+            <xs:sequence id="caches" minOccurs="1" maxOccurs="1">
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="default" maxOccurs="unbounded" minOccurs="0"/>
+                    <xs:element ref="date-based-cache" maxOccurs="unbounded" minOccurs="0"/>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="id" use="optional" default="cacheManager" type="xs:string"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>

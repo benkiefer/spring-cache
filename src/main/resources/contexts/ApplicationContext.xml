@@ -14,18 +14,11 @@
 
     <cache:annotation-driven/>
 
-    <caches:date-based-cache id="words" name="words" timeUntilExpiration="${spring.cache.time.until.expiration}"
-                             unitOfMeasurement="${spring.cache.unit.of.measurement}"/>
-    <caches:default id="other" name="other"/>
-
-    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
-        <property name="caches">
-            <set>
-                <ref bean="words"/>
-                <ref bean="other"/>
-            </set>
-        </property>
-    </bean>
-
+    <caches:caching>
+        <caches:default id="other" name="other"/>
+        <caches:date-based-cache id="words" name="words"
+                        timeUntilExpiration="${spring.cache.time.until.expiration}"
+                        unitOfMeasurement="${spring.cache.unit.of.measurement}"/>
+    </caches:caching>
 
 </beans>
