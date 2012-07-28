@@ -6,44 +6,54 @@ import org.w3c.dom.Element
 import org.springframework.beans.factory.xml.ParserContext
 import org.springframework.beans.factory.support.RootBeanDefinition
 import org.springframework.beans.MutablePropertyValues
-import org.springframework.util.StringUtils
-import org.springframework.beans.factory.config.RuntimeBeanReference
 import org.burgers.spring.cache.util.EntryDateTrackingCache
 import org.springframework.beans.factory.parsing.BeanComponentDefinition
 import org.springframework.beans.factory.config.ConstructorArgumentValues
+import org.springframework.beans.factory.support.BeanDefinitionBuilder
+import org.springframework.beans.factory.support.BeanDefinitionRegistry
 
 class DateBasedCacheBeanDefinitionParser implements BeanDefinitionParser {
     @Override
     BeanDefinition parse(Element element, ParserContext parserContext) {
-        String beanId = "dateBasedCache"
+        BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(EntryDateTrackingCache.class)
 
-        String id = element.getAttribute("id")
+        builder.addPropertyValue("timeUntilExpiration", element.getAttribute("timeUntilExpiration"))
+        builder.addPropertyValue("unitOfMeasurement", element.getAttribute("unitOfMeasurement"))
 
-        if (id) {
-            beanId = id
-        } else {
-            beanId = beanId + System.currentTimeMillis().toString()
-        }
+        prepareConstructorArgs(element, builder)
 
-        RootBeanDefinition cacheBean = new RootBeanDefinition(EntryDateTrackingCache.class);
-        cacheBean.setConstructorArgumentValues(prepareConstructorArgs(element))
-        cacheBean.setPropertyValues(preparePropertyValues(element))
+        String beanId = calculateId(element, parserContext.registry)
 
-        parserContext.registerBeanComponent(new BeanComponentDefinition(cacheBean, beanId))
+        parserContext.registerBeanComponent(new BeanComponentDefinition(builder.getBeanDefinition(), beanId))
 
         null
     }
 
-    private MutablePropertyValues preparePropertyValues(Element element) {
-        MutablePropertyValues propertyValues = new MutablePropertyValues();
-        propertyValues.add("timeUntilExpiration", element.getAttribute("timeUntilExpiration"))
-        propertyValues.add("unitOfMeasurement", element.getAttribute("unitOfMeasurement"))
-        propertyValues
+    private String calculateId(Element element, BeanDefinitionRegistry registry) {
+        String beanId = "dateBasedCache"
+
+        String id = element.getAttribute("id")
+        if (id) {
+            beanId = id
+        }
+
+        if (registry.containsBeanDefinition(beanId)){
+            beanId = beanId + "_${System.currentTimeMillis()}"
+        }
+
+        beanId
     }
 
-    private ConstructorArgumentValues prepareConstructorArgs(Element element) {
-        ConstructorArgumentValues  values = new ConstructorArgumentValues ();
-        values.addIndexedArgumentValue(0, element.getAttribute("name"))
-        values
+    private void prepareConstructorArgs(Element element, BeanDefinitionBuilder builder) {
+        builder.addConstructorArg(element.getAttribute("name"))
+
+        def allowNullValues = element.getAttribute("allowNullValues")
+        def store = element.getAttribute("store-ref")
+        if (allowNullValues && store) {
+            builder.addConstructorArgReference(store)
+            builder.addConstructorArg(allowNullValues)
+        } else if (allowNullValues && !store) {
+            builder.addConstructorArg(allowNullValues)
+        }
     }
 }

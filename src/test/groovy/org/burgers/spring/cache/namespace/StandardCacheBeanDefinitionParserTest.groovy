@@ -1,13 +1,14 @@
 package org.burgers.spring.cache.namespace
 
-import org.springframework.context.ApplicationContext
-import org.junit.Test
-import org.junit.Before
-import org.springframework.context.support.FileSystemXmlApplicationContext
-import org.junit.After
 import org.burgers.spring.cache.util.EntryDateTrackingCache
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+import org.springframework.context.ApplicationContext
+import org.springframework.context.support.FileSystemXmlApplicationContext
+import org.springframework.cache.concurrent.ConcurrentMapCache
 
-class DateBasedCacheBeanDefinitionParserTest {
+class StandardCacheBeanDefinitionParserTest {
     ApplicationContext context
     File file
 
@@ -19,39 +20,36 @@ class DateBasedCacheBeanDefinitionParserTest {
     @Test
     void standard_configuration(){
         def myContextValue = """
-                <caches:date-based-cache id="dateCache" name="words" timeUntilExpiration="5" unitOfMeasurement="12"/>
+                <caches:default id="myCache" name="words"/>
         """
 
         prepareContext(myContextValue)
 
-        assert context.getBean("dateCache").class == EntryDateTrackingCache
-        assert context.getBean("dateCache").timeUntilExpiration == 5
-        assert context.getBean("dateCache").unitOfMeasurement == 12
-        assert context.getBean("dateCache").name == "words"
-        assert context.getBean("dateCache").allowNullValues
+        assert context.getBean("myCache").class == ConcurrentMapCache
+        assert context.getBean("myCache").name == "words"
+        assert context.getBean("myCache").allowNullValues
     }
 
     @Test
     void default_id(){
         def myContextValue = """
-                <caches:date-based-cache name="words" timeUntilExpiration="5" unitOfMeasurement="12"/>
+                <caches:default name="words"/>
         """
 
         prepareContext(myContextValue)
 
-        assert context.getBean("dateBasedCache").name == "words"
+        assert context.getBean("standardCache").name == "words"
     }
 
     @Test
     void allowNullValues(){
         def myContextValue = """
-                <caches:date-based-cache id="dateCache" name="words" allowNullValues="false"
-                        timeUntilExpiration="5" unitOfMeasurement="12"/>
+                <caches:default id="myCache" name="words" allowNullValues="false"/>
         """
 
         prepareContext(myContextValue)
 
-        assert !context.getBean("dateCache").allowNullValues
+        assert !context.getBean("myCache").allowNullValues
     }
 
     @Test
@@ -59,15 +57,14 @@ class DateBasedCacheBeanDefinitionParserTest {
         def myContextValue = """
                 <bean id="store" class="java.util.concurrent.ConcurrentHashMap"/>
 
-                <caches:date-based-cache id="dateCache" name="words" allowNullValues="false" store-ref="store"
-                        timeUntilExpiration="5" unitOfMeasurement="12"/>
+                <caches:default id="myCache" name="words" allowNullValues="false" store-ref="store"/>
         """
 
         prepareContext(myContextValue)
 
-        EntryDateTrackingCache dateCache = context.getBean("dateCache")
-        assert !dateCache.allowNullValues
-        assert dateCache.getNativeCache().is(context.getBean("store"))
+        ConcurrentMapCache cache = context.getBean("myCache")
+        assert !cache.allowNullValues
+        assert cache.getNativeCache().is(context.getBean("store"))
     }
 
     @After

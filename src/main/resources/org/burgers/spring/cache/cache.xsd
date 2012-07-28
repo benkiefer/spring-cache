@@ -5,6 +5,8 @@
         <xs:complexType>
             <xs:attribute name="id" use="optional" type="xs:ID"/>
             <xs:attribute name="name" use="required" type="xs:string"/>
+            <xs:attribute name="allowNullValues" use="optional" type="xs:boolean"/>
+            <xs:attribute name="store-ref" use="optional" type="xs:string"/>
             <xs:attribute name="timeUntilExpiration" use="required" type="xs:string"/>
             <xs:attribute name="unitOfMeasurement" use="required" type="xs:string"/>
         </xs:complexType>
@@ -13,6 +15,8 @@
         <xs:complexType>
             <xs:attribute name="id" use="optional" type="xs:ID"/>
             <xs:attribute name="name" use="required" type="xs:string"/>
+            <xs:attribute name="allowNullValues" use="optional" type="xs:boolean"/>
+            <xs:attribute name="store-ref" use="optional" type="xs:string"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>
