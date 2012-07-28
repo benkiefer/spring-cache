@@ -1,8 +1,8 @@
 package org.burgers.spring.cache.namespace
 
-import org.w3c.dom.Element
 import org.burgers.spring.cache.util.EntryDateTrackingCache
 import org.springframework.beans.factory.support.BeanDefinitionBuilder
+import org.w3c.dom.Element
 
 class DateBasedCacheBeanDefinitionParser extends AbstractCacheBeanDefinitionParser {
     @Override

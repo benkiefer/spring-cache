@@ -1,13 +1,12 @@
 package org.burgers.spring.cache.namespace
 
-import org.springframework.beans.factory.xml.BeanDefinitionParser
 import org.springframework.beans.factory.config.BeanDefinition
-import org.w3c.dom.Element
-import org.springframework.beans.factory.xml.ParserContext
-import org.springframework.beans.factory.support.BeanDefinitionBuilder
-import org.burgers.spring.cache.util.EntryDateTrackingCache
 import org.springframework.beans.factory.parsing.BeanComponentDefinition
+import org.springframework.beans.factory.support.BeanDefinitionBuilder
 import org.springframework.beans.factory.support.BeanDefinitionRegistry
+import org.springframework.beans.factory.xml.BeanDefinitionParser
+import org.springframework.beans.factory.xml.ParserContext
+import org.w3c.dom.Element
 
 abstract class AbstractCacheBeanDefinitionParser implements BeanDefinitionParser {
     abstract Class getCacheClass()
