@@ -5,5 +5,6 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport
 class DateBasedCacheNamespaceHandler extends NamespaceHandlerSupport {
     void init() {
         registerBeanDefinitionParser("date-based-cache", new DateBasedCacheBeanDefinitionParser());
+        registerBeanDefinitionParser("default", new StandardCacheBeanDefinitionParser());
     }
 }

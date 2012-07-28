@@ -9,4 +9,10 @@
             <xs:attribute name="unitOfMeasurement" use="required" type="xs:string"/>
         </xs:complexType>
     </xs:element>
+    <xs:element name="default">
+        <xs:complexType>
+            <xs:attribute name="id" use="optional" type="xs:ID"/>
+            <xs:attribute name="name" use="required" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>
