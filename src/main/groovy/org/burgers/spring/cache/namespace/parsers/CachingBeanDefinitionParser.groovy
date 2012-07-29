@@ -51,6 +51,10 @@ class CachingBeanDefinitionParser implements BeanDefinitionParser {
             set.add(new RuntimeBeanReference(beanName))
         }
 
+        DomUtils.getChildElementsByTagName(element, "cache-ref").each {
+            set.add(new RuntimeBeanReference(it.getAttribute("ref")))
+        }
+
         builder.addPropertyValue("caches", set)
     }
 

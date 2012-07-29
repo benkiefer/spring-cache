@@ -8,7 +8,7 @@ import org.burgers.spring.cache.namespace.parsers.StandardCacheBeanDefinitionPar
 class CacheNamespaceHandler extends NamespaceHandlerSupport {
     void init() {
         registerBeanDefinitionParser("caching", new CachingBeanDefinitionParser());
-        registerBeanDefinitionParser("date-based-cache", new DateBasedCacheBeanDefinitionParser());
         registerBeanDefinitionParser("standard", new StandardCacheBeanDefinitionParser());
+        registerBeanDefinitionParser("date-based-cache", new DateBasedCacheBeanDefinitionParser());
     }
 }

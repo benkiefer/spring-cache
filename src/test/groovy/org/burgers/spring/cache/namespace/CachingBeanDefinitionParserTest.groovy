@@ -90,4 +90,25 @@ class CachingBeanDefinitionParserTest extends BeanDefinitionParserTestCase {
         assert manager.getCache("myOtherCache").is(context.getBean("cache2"))
     }
 
+    @Test
+    void cache_ref_hook(){
+        def myContextValue = """
+                <caches:standard id="cache1" name="myCache"/>
+
+                <caches:caching>
+                    <caches:cache-ref ref="cache1"/>
+                    <caches:date-based-cache id="cache2" name="myOtherCache"
+                            timeUntilExpiration="5" unitOfMeasurement="12"/>
+                </caches:caching>
+        """
+
+        prepareContext(myContextValue)
+
+        SimpleCacheManager manager = context.getBean("cacheManager")
+        assert manager.getCacheNames().contains("myCache")
+        assert manager.getCacheNames().contains("myOtherCache")
+        assert manager.getCache("myCache").is(context.getBean("cache1"))
+        assert manager.getCache("myOtherCache").is(context.getBean("cache2"))
+    }
+
 }
