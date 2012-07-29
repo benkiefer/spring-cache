@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component
 import org.springframework.cache.CacheManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cache.annotation.CacheEvict
-import org.burgers.spring.cache.util.EntryDateTrackingCache
+import org.burgers.spring.cache.EntryDateTrackingCache
 
 @Component
 class CacheCleanerImpl implements CacheCleaner {

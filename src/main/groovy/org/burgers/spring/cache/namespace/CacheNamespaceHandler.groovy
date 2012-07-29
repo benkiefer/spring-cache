@@ -9,6 +9,6 @@ class CacheNamespaceHandler extends NamespaceHandlerSupport {
     void init() {
         registerBeanDefinitionParser("caching", new CachingBeanDefinitionParser());
         registerBeanDefinitionParser("date-based-cache", new DateBasedCacheBeanDefinitionParser());
-        registerBeanDefinitionParser("default", new StandardCacheBeanDefinitionParser());
+        registerBeanDefinitionParser("standard", new StandardCacheBeanDefinitionParser());
     }
 }

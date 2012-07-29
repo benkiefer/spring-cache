@@ -1,4 +1,4 @@
-package org.burgers.spring.cache.util
+package org.burgers.spring.cache
 
 import org.springframework.cache.concurrent.ConcurrentMapCache
 import java.util.concurrent.ConcurrentMap

@@ -7,7 +7,7 @@ class StandardCacheBeanDefinitionParserTest extends BeanDefinitionParserTestCase
     @Test
     void standard_configuration(){
         def myContextValue = """
-                <caches:default id="myCache" name="words"/>
+                <caches:standard id="myCache" name="words"/>
         """
 
         prepareContext(myContextValue)
@@ -20,7 +20,7 @@ class StandardCacheBeanDefinitionParserTest extends BeanDefinitionParserTestCase
     @Test
     void default_id(){
         def myContextValue = """
-                <caches:default name="words"/>
+                <caches:standard name="words"/>
         """
 
         prepareContext(myContextValue)
@@ -31,7 +31,7 @@ class StandardCacheBeanDefinitionParserTest extends BeanDefinitionParserTestCase
     @Test
     void allowNullValues(){
         def myContextValue = """
-                <caches:default id="myCache" name="words" allowNullValues="false"/>
+                <caches:standard id="myCache" name="words" allowNullValues="false"/>
         """
 
         prepareContext(myContextValue)
@@ -44,7 +44,7 @@ class StandardCacheBeanDefinitionParserTest extends BeanDefinitionParserTestCase
         def myContextValue = """
                 <bean id="store" class="java.util.concurrent.ConcurrentHashMap"/>
 
-                <caches:default id="myCache" name="words" allowNullValues="false" store-ref="store"/>
+                <caches:standard id="myCache" name="words" allowNullValues="false" store-ref="store"/>
         """
 
         prepareContext(myContextValue)

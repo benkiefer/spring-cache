@@ -11,7 +11,7 @@
             <xs:attribute name="unitOfMeasurement" use="required" type="xs:string"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="default">
+    <xs:element name="standard">
         <xs:complexType>
             <xs:attribute name="id" use="optional" type="xs:string"/>
             <xs:attribute name="name" use="required" type="xs:string"/>
@@ -24,7 +24,7 @@
         <xs:complexType>
             <xs:sequence id="caches" minOccurs="1" maxOccurs="1">
                 <xs:choice minOccurs="0" maxOccurs="unbounded">
-                    <xs:element ref="default" maxOccurs="unbounded" minOccurs="0"/>
+                    <xs:element ref="standard" maxOccurs="unbounded" minOccurs="0"/>
                     <xs:element ref="date-based-cache" maxOccurs="unbounded" minOccurs="0"/>
                 </xs:choice>
             </xs:sequence>

@@ -37,7 +37,7 @@ class CachingBeanDefinitionParser implements BeanDefinitionParser {
     private void prepareCaches(Element element, BeanDefinitionBuilder builder, ParserContext parserContext) {
         ManagedSet set = new ManagedSet()
 
-        DomUtils.getChildElementsByTagName(element, "default").each {
+        DomUtils.getChildElementsByTagName(element, "standard").each {
             def cache = standardCacheBuilder.parse(it, parserContext)
             String beanName = calculator.calculate(standardCacheBuilder.getDefaultBeanName(), it, parserContext.registry)
             parserContext.registerBeanComponent(new BeanComponentDefinition(cache, beanName))

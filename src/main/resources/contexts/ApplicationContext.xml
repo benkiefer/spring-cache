@@ -15,7 +15,7 @@
     <cache:annotation-driven/>
 
     <caches:caching>
-        <caches:default id="other" name="other"/>
+        <caches:standard id="other" name="other"/>
         <caches:date-based-cache id="words" name="words"
                         timeUntilExpiration="${spring.cache.time.until.expiration}"
                         unitOfMeasurement="${spring.cache.unit.of.measurement}"/>

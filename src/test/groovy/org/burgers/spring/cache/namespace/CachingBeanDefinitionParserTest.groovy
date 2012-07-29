@@ -8,7 +8,7 @@ class CachingBeanDefinitionParserTest extends BeanDefinitionParserTestCase {
     void default_id(){
         def myContextValue = """
                 <caches:caching>
-                    <caches:default id="cache1" name="myCache"/>
+                    <caches:standard id="cache1" name="myCache"/>
                 </caches:caching>
         """
 
@@ -23,7 +23,7 @@ class CachingBeanDefinitionParserTest extends BeanDefinitionParserTestCase {
     void default_custom_id(){
         def myContextValue = """
                 <caches:caching id="custom">
-                    <caches:default id="cache1" name="myCache"/>
+                    <caches:standard id="cache1" name="myCache"/>
                 </caches:caching>
         """
 
@@ -38,8 +38,8 @@ class CachingBeanDefinitionParserTest extends BeanDefinitionParserTestCase {
     void default_multiple_caches(){
         def myContextValue = """
                 <caches:caching>
-                    <caches:default id="cache1" name="myCache"/>
-                    <caches:default id="cache2" name="myOtherCache"/>
+                    <caches:standard id="cache1" name="myCache"/>
+                    <caches:standard id="cache2" name="myOtherCache"/>
                 </caches:caching>
         """
 
@@ -56,7 +56,7 @@ class CachingBeanDefinitionParserTest extends BeanDefinitionParserTestCase {
     void multiple_types_of_caches(){
         def myContextValue = """
                 <caches:caching>
-                    <caches:default id="cache1" name="myCache"/>
+                    <caches:standard id="cache1" name="myCache"/>
                     <caches:date-based-cache id="cache2" name="myOtherCache"
                             timeUntilExpiration="5" unitOfMeasurement="12"/>
                 </caches:caching>
@@ -75,9 +75,9 @@ class CachingBeanDefinitionParserTest extends BeanDefinitionParserTestCase {
     void multiple_types_of_caches_order_doesnt_matter(){
         def myContextValue = """
                 <caches:caching>
+                    <caches:standard id="cache1" name="myCache"/>
                     <caches:date-based-cache id="cache2" name="myOtherCache"
                             timeUntilExpiration="5" unitOfMeasurement="12"/>
-                    <caches:default id="cache1" name="myCache"/>
                 </caches:caching>
         """
 

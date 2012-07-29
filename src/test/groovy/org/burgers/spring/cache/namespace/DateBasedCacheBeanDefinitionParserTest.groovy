@@ -1,6 +1,6 @@
 package org.burgers.spring.cache.namespace
 
-import org.burgers.spring.cache.util.EntryDateTrackingCache
+import org.burgers.spring.cache.EntryDateTrackingCache
 import org.junit.Test
 
 class DateBasedCacheBeanDefinitionParserTest extends BeanDefinitionParserTestCase {
