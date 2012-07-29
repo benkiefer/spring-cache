@@ -17,12 +17,12 @@
         <caches:standard id="standardWords" name="standardWords"/>
         <!--expires in 5 minutes-->
         <caches:date-based-cache id="words" name="words"
-                        timeUntilExpiration="5"
-                        unitOfMeasurement="12"/>
+                                 timeUntilExpiration="5"
+                                 unitOfMeasurement="12"/>
         <!--immediate expiration in seconds-->
         <caches:date-based-cache id="expiringWords" name="expiringWords"
-                        timeUntilExpiration="-1"
-                        unitOfMeasurement="13"/>
+                                 timeUntilExpiration="-1"
+                                 unitOfMeasurement="13"/>
     </caches:caching>
 
 </beans>

@@ -21,7 +21,9 @@ Use this if the ConcurrentMapCache and EntryDateTrackingCache are sufficient for
 **Example 2:**
 Use this if you want to create your own cache and then reference it by id in the schema.
 
-    <caches:standard id="cache1" name="things"/>
+    <bean id="cache1" class="org.springframework.cache.concurrent.ConcurrentMapCache">
+        <constructor-arg index="0" value="things"/>
+    </bean>
 
     <caches:caching id="cacheManager">
         <caches:cache-ref ref="cache1"/>
