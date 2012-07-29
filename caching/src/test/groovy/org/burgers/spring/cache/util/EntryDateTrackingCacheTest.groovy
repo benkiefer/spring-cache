@@ -1,8 +1,8 @@
 package org.burgers.spring.cache.util
 
-import org.junit.Test
-import org.junit.Before
 import org.burgers.spring.cache.EntryDateTrackingCache
+import org.junit.Before
+import org.junit.Test
 
 class EntryDateTrackingCacheTest {
     EntryDateTrackingCache cache

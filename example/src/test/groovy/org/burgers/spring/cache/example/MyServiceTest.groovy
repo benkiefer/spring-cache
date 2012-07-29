@@ -1,13 +1,13 @@
 package org.burgers.spring.cache.example
 
-import org.junit.runner.RunWith
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
-import org.springframework.test.context.ContextConfiguration
-import org.springframework.beans.factory.annotation.Autowired
-import org.junit.Test
-import org.junit.Before
-import org.burgers.spring.cache.example.storage.MyService
 import org.burgers.spring.cache.example.storage.Listener
+import org.burgers.spring.cache.example.storage.MyService
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.test.context.ContextConfiguration
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 @RunWith(SpringJUnit4ClassRunner)
 @ContextConfiguration(locations = "classpath:contexts/ApplicationContext.xml")

@@ -1,6 +1,5 @@
 package org.burgers.spring.cache.example.cleaning
 
-import org.burgers.spring.cache.EntryDateTrackingCache
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.CacheEvict

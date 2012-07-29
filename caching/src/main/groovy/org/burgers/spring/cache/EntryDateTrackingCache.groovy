@@ -1,10 +1,10 @@
 package org.burgers.spring.cache
 
+import org.springframework.cache.Cache
 import org.springframework.cache.concurrent.ConcurrentMapCache
 import org.springframework.cache.support.SimpleValueWrapper
 
 import java.util.concurrent.ConcurrentMap
-import org.springframework.cache.Cache
 
 class EntryDateTrackingCache extends ConcurrentMapCache {
     private final ConcurrentMap<Object, Object> store;
