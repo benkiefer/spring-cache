@@ -1,7 +1,7 @@
 package org.burgers.spring.cache.namespace
 
-import org.springframework.cache.support.SimpleCacheManager
 import org.junit.Test
+import org.springframework.cache.support.SimpleCacheManager
 
 class CachingBeanDefinitionParserTest extends BeanDefinitionParserTestCase {
     @Test
