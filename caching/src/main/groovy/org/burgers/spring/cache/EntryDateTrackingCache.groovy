@@ -2,10 +2,12 @@ package org.burgers.spring.cache
 
 import org.springframework.cache.concurrent.ConcurrentMapCache
 import org.springframework.cache.support.SimpleValueWrapper
-import org.springframework.cache.Cache.ValueWrapper
+
 import java.util.concurrent.ConcurrentMap
+import org.springframework.cache.Cache
 
 class EntryDateTrackingCache extends ConcurrentMapCache {
+    private final ConcurrentMap<Object, Object> store;
     int timeUntilExpiration
     int unitOfMeasurement
 
@@ -23,39 +25,39 @@ class EntryDateTrackingCache extends ConcurrentMapCache {
 
     @Override
     void put(Object key, Object value) {
-        super.put(key, new DateStampedValue(realValue: value))
+        super.put(key, new DateStampedValue(value, calculateExpirationDate()))
     }
 
-    void clearExpiredRecords() {
-        Date expirationDate = getExpirationDate()
-
-        def map = getNativeCache()
-
-        map.each {key, DateStampedValue value ->
-            if (value.date.before(expirationDate))
-                map.remove(key)
-        }
-    }
-
-    private Date getExpirationDate() {
+    private Date calculateExpirationDate() {
         def calendar = Calendar.getInstance()
         calendar.add(unitOfMeasurement, -timeUntilExpiration)
         calendar.getTime()
     }
 
     @Override
-    ValueWrapper get(Object key) {
-        ValueWrapper value = super.get(key)
-        if (value) {
-            DateStampedValue wrappedValue = value.get()
-            return new SimpleValueWrapper(wrappedValue.realValue)
+    Cache.ValueWrapper get(Object key) {
+        DateStampedValue value = super.get(key)?.get()
+        if (value){
+            if (new Date().after(value.expirationDate)) {
+                return new SimpleValueWrapper(value.realValue)
+            } else {
+                super.evict(key)
+            }
         }
-        value
+        null
     }
 
     class DateStampedValue {
         def realValue
-        Date date = new Date()
+        Date expirationDate
+
+        DateStampedValue(value, Date expirationDate) {
+            this.expirationDate = expirationDate
+            this.realValue = value
+        }
+
     }
 
 }
+
+

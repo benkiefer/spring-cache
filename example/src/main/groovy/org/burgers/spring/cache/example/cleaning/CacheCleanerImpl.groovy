@@ -29,11 +29,4 @@ class CacheCleanerImpl implements CacheCleaner {
     @CacheEvict (value = "words", condition="caches[0].getNativeCache().size() > 1")
     void moreAdvancedCleaning() { }
 
-
-
-//    create special type of cache that can be used to purge old records.
-    void cleanExpiredRecords() {
-        EntryDateTrackingCache cache = (EntryDateTrackingCache) cacheManager.getCache("words")
-        cache.clearExpiredRecords()
-    }
 }

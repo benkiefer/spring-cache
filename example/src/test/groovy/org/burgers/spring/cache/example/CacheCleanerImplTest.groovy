@@ -53,21 +53,6 @@ class CacheCleanerImplTest {
         assert !isCacheEmpty(cache)
     }
 
-    @Test
-    void dateBasedCleaning(){
-        cache.put("1", "one")
-
-        cleaner.cleanExpiredRecords()
-
-        assert cache.get("1").get() == "one"
-
-        cache.timeUntilExpiration = 0
-
-        cleaner.cleanExpiredRecords()
-
-        assert isCacheEmpty(cache)
-    }
-
     boolean isCacheEmpty(Cache cache){
          cache.nativeCache.isEmpty()
     }

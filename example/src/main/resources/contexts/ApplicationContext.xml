@@ -8,17 +8,21 @@
         http://www.burgers.org/schema/cache http://www.burgers.org/schema/cache.xsd
         http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-    <context:property-placeholder location="classpath:env.properties"/>
-
     <context:component-scan base-package="org.burgers.spring.cache"/>
 
     <cache:annotation-driven/>
 
     <caches:caching>
-        <caches:standard id="other" name="other"/>
+        <!--no concept of expiration-->
+        <caches:standard id="standardWords" name="standardWords"/>
+        <!--expires in 5 minutes-->
         <caches:date-based-cache id="words" name="words"
-                        timeUntilExpiration="${spring.cache.time.until.expiration}"
-                        unitOfMeasurement="${spring.cache.unit.of.measurement}"/>
+                        timeUntilExpiration="5"
+                        unitOfMeasurement="12"/>
+        <!--immediate expiration in seconds-->
+        <caches:date-based-cache id="expiringWords" name="expiringWords"
+                        timeUntilExpiration="-1"
+                        unitOfMeasurement="13"/>
     </caches:caching>
 
 </beans>

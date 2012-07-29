@@ -6,6 +6,4 @@ interface CacheCleaner {
     void cleanWithAnnotations()
 
     void moreAdvancedCleaning()
-
-    void cleanExpiredRecords()
 }

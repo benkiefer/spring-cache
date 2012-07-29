@@ -8,7 +8,23 @@ class MyServiceImpl implements MyService {
     Listener listener = new NoOpListener()
 
     @Cacheable("words")
-    int numberOfCharacters(String evaluatedString) {
+    int dateCacheNumberOfCharacters(String evaluatedString) {
+        listener.listen()
+
+//        Pretend this is some expensive operation that you'd want to cache.
+        evaluatedString.size();
+    }
+
+    @Cacheable("expiringWords")
+    int alwaysExpiringDateCacheNumberOfCharacters(String evaluatedString) {
+        listener.listen()
+
+//        Pretend this is some expensive operation that you'd want to cache.
+        evaluatedString.size();
+    }
+
+    @Cacheable("standardWords")
+    int standardCacheNumberOfCharacters(String evaluatedString) {
         listener.listen()
 
 //        Pretend this is some expensive operation that you'd want to cache.

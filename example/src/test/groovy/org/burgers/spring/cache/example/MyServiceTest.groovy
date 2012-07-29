@@ -22,32 +22,47 @@ class MyServiceTest {
     }
 
     @Test
-    void numberOfCharacters(){
-        assert 4 == myService.numberOfCharacters("blah")
-        assert countingListener.count == 1
-        assert 4 == myService.numberOfCharacters("blah")
+    void numberOfCharacters_performance_example(){
+        myService.listener = countingListener
+        def start = System.currentTimeMillis()
+        25000.times{
+            assert 4 == myService.dateCacheNumberOfCharacters("blah")
+        }
+        def end = System.currentTimeMillis() - start
+        assert end < 1200
+        println end
         assert countingListener.count == 1
     }
 
     @Test
-    void numberOfCharacters_performance_example(){
-        myService.listener = new NappingListener()
+    void standardCacheNumberOfCharacters_performance_example(){
+        myService.listener = countingListener
         def start = System.currentTimeMillis()
         25000.times{
-            myService.numberOfCharacters("blah")
+            assert 4 == myService.standardCacheNumberOfCharacters("blah")
         }
         def end = System.currentTimeMillis() - start
-        assert end < 2000
+        assert end < 700
+        println end
+        assert countingListener.count == 1
     }
 
+    @Test
+    void alwaysExpiringNumberOfCharacters_performance_example(){
+        myService.listener = countingListener
+        def start = System.currentTimeMillis()
+        25000.times{
+            assert 4 == myService.alwaysExpiringDateCacheNumberOfCharacters("blah")
+        }
+        def end = System.currentTimeMillis() - start
+        println end
+        assert end < 2200
+        assert countingListener.count == 25000
+    }
 
     class CountingListener implements Listener {
         int count = 0
         void listen() { count++ }
-    }
-
-    class NappingListener implements Listener {
-        void listen(){Thread.sleep(1000)}
     }
 
 }

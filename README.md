@@ -1,8 +1,8 @@
 ##Spring 3.1 Spring Cache Enhancements
 
-A schema wrapper on top of SpringCache that includes an additional cache that will purge records after a configured amount of time.
-
-In order to purge expired records from the EntryDateTrackingCache, you must call the appropriate clearExpiredRecords on the cache.
+**Features**
+ - A schema wrapper on top of SpringCache.
+ - Includes EntryDateTrackingCache, an additional cache that will remove an item from the cache if it is expired.
 
 **Note:** Unit of measurement is equivalent to the int value of the appropriate unit in java's Calendar class. Ex: 12 = MINUTE.
 

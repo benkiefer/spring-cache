@@ -13,7 +13,7 @@ class EntryDateTrackingCacheTest {
     }
 
     @Test
-    void put_get() {
+    void put_get_not_expire_yet() {
         cache.timeUntilExpiration = 5
         cache.unitOfMeasurement = Calendar.HOUR
         cache.put("test", "one")
@@ -21,21 +21,12 @@ class EntryDateTrackingCacheTest {
     }
 
     @Test
-    void clearExpiredRecords() {
+    void put_get_expire_record() {
         cache.timeUntilExpiration = -5
         cache.unitOfMeasurement = Calendar.HOUR
         cache.put("test", "one")
-        cache.clearExpiredRecords()
+        assert !cache.get("test")
         assert cache.getNativeCache().isEmpty()
-    }
-
-    @Test
-    void clearExpiredRecords_not_old_enough() {
-        cache.timeUntilExpiration = 5
-        cache.unitOfMeasurement = Calendar.HOUR
-        cache.put("test", "one")
-        cache.clearExpiredRecords()
-        assert cache.getNativeCache().size() == 1
     }
 
     @Test
