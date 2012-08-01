@@ -3,8 +3,8 @@
 **Features**
  - A schema wrapper on top of SpringCache.
  - Includes EntryDateTrackingCache, an additional cache that will remove an item from the cache if it is expired.
+ - Supported expiration values include: SECONDS, MINUTES, HOURS
 
-**Note:** Unit of measurement is equivalent to the int value of the appropriate unit in java's Calendar class. Ex: 12 = MINUTE.
 
 ##Usage Examples
 
@@ -15,7 +15,7 @@ Use this if the ConcurrentMapCache and EntryDateTrackingCache are sufficient for
         <caches:standard name="things"/>
         <caches:date-based-cache name="otherThings"
                         timeUntilExpiration="5"
-                        unitOfMeasurement="12"/>
+                        unitOfMeasurement="MINUTES"/>
     </caches:caching>
 
 **Example 2:**
@@ -29,6 +29,6 @@ Use this if you want to create your own cache and then reference it by id in the
         <caches:cache-ref ref="cache1"/>
         <caches:date-based-cache name="otherThings"
                         timeUntilExpiration="5"
-                        unitOfMeasurement="12"/>
+                        unitOfMeasurement="MINUTES"/>
     </caches:caching>
 

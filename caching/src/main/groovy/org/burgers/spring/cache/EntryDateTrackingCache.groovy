@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentMap
 class EntryDateTrackingCache extends ConcurrentMapCache {
     private final ConcurrentMap<Object, Object> store;
     int timeUntilExpiration
-    int unitOfMeasurement
+    TimeUnit unitOfMeasurement
 
     EntryDateTrackingCache(String name) {
         super(name)
@@ -30,7 +30,7 @@ class EntryDateTrackingCache extends ConcurrentMapCache {
 
     private Date calculateExpirationDate() {
         def calendar = Calendar.getInstance()
-        calendar.add(unitOfMeasurement, -timeUntilExpiration)
+        calendar.add(unitOfMeasurement.value(), -timeUntilExpiration)
         calendar.getTime()
     }
 

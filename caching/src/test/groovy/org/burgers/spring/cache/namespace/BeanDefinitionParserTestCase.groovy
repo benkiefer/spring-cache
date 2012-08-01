@@ -27,6 +27,16 @@ abstract class BeanDefinitionParserTestCase {
                       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                       http://www.burgers.org/schema/cache http://www.burgers.org/schema/cache.xsd">
 
+                <bean id="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+                      <property name="customEditors">
+                            <map>
+                              <entry key="org.burgers.spring.cache.TimeUnit">
+                                <bean class="org.burgers.spring.cache.TimeUnitPropertyEditor"/>
+                              </entry>
+                            </map>
+                      </property>
+                </bean>
+
                 ${myValue}
 
                </beans>

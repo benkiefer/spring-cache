@@ -18,11 +18,21 @@
         <!--expires in 5 minutes-->
         <caches:date-based-cache id="words" name="words"
                                  timeUntilExpiration="5"
-                                 unitOfMeasurement="12"/>
+                                 unitOfMeasurement="MINUTES"/>
         <!--immediate expiration in seconds-->
         <caches:date-based-cache id="expiringWords" name="expiringWords"
                                  timeUntilExpiration="-1"
-                                 unitOfMeasurement="13"/>
+                                 unitOfMeasurement="SECONDS"/>
     </caches:caching>
+
+    <bean id="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+          <property name="customEditors">
+                <map>
+                  <entry key="org.burgers.spring.cache.TimeUnit">
+                    <bean class="org.burgers.spring.cache.TimeUnitPropertyEditor"/>
+                  </entry>
+                </map>
+          </property>
+    </bean>
 
 </beans>

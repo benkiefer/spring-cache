@@ -3,6 +3,7 @@ package org.burgers.spring.cache.util
 import org.burgers.spring.cache.EntryDateTrackingCache
 import org.junit.Before
 import org.junit.Test
+import org.burgers.spring.cache.TimeUnit
 
 class EntryDateTrackingCacheTest {
     EntryDateTrackingCache cache
@@ -15,7 +16,7 @@ class EntryDateTrackingCacheTest {
     @Test
     void put_get_not_expire_yet() {
         cache.timeUntilExpiration = 5
-        cache.unitOfMeasurement = Calendar.HOUR
+        cache.unitOfMeasurement = TimeUnit.HOURS
         cache.put("test", "one")
         assert cache.get("test").get() == "one"
     }
@@ -23,7 +24,7 @@ class EntryDateTrackingCacheTest {
     @Test
     void put_get_expire_record() {
         cache.timeUntilExpiration = -5
-        cache.unitOfMeasurement = Calendar.HOUR
+        cache.unitOfMeasurement = TimeUnit.HOURS
         cache.put("test", "one")
         assert !cache.get("test")
         assert cache.getNativeCache().isEmpty()

@@ -2,19 +2,20 @@ package org.burgers.spring.cache.namespace
 
 import org.burgers.spring.cache.EntryDateTrackingCache
 import org.junit.Test
+import org.burgers.spring.cache.TimeUnit
 
 class DateBasedCacheBeanDefinitionParserTest extends BeanDefinitionParserTestCase {
     @Test
     void standard_configuration(){
         def myContextValue = """
-                <caches:date-based-cache id="dateCache" name="words" timeUntilExpiration="5" unitOfMeasurement="12"/>
+                <caches:date-based-cache id="dateCache" name="words" timeUntilExpiration="5" unitOfMeasurement="MINUTES"/>
         """
 
         prepareContext(myContextValue)
 
         assert context.getBean("dateCache").class == EntryDateTrackingCache
         assert context.getBean("dateCache").timeUntilExpiration == 5
-        assert context.getBean("dateCache").unitOfMeasurement == 12
+        assert context.getBean("dateCache").unitOfMeasurement == TimeUnit.MINUTES
         assert context.getBean("dateCache").name == "words"
         assert context.getBean("dateCache").allowNullValues
     }
@@ -22,7 +23,7 @@ class DateBasedCacheBeanDefinitionParserTest extends BeanDefinitionParserTestCas
     @Test
     void default_id(){
         def myContextValue = """
-                <caches:date-based-cache name="words" timeUntilExpiration="5" unitOfMeasurement="12"/>
+                <caches:date-based-cache name="words" timeUntilExpiration="5" unitOfMeasurement="MINUTES"/>
         """
 
         prepareContext(myContextValue)
@@ -34,7 +35,7 @@ class DateBasedCacheBeanDefinitionParserTest extends BeanDefinitionParserTestCas
     void allowNullValues(){
         def myContextValue = """
                 <caches:date-based-cache id="dateCache" name="words" allowNullValues="false"
-                        timeUntilExpiration="5" unitOfMeasurement="12"/>
+                        timeUntilExpiration="5" unitOfMeasurement="MINUTES"/>
         """
 
         prepareContext(myContextValue)
@@ -48,7 +49,7 @@ class DateBasedCacheBeanDefinitionParserTest extends BeanDefinitionParserTestCas
                 <bean id="store" class="java.util.concurrent.ConcurrentHashMap"/>
 
                 <caches:date-based-cache id="dateCache" name="words" allowNullValues="false" store-ref="store"
-                        timeUntilExpiration="5" unitOfMeasurement="12"/>
+                        timeUntilExpiration="5" unitOfMeasurement="MINUTES"/>
         """
 
         prepareContext(myContextValue)

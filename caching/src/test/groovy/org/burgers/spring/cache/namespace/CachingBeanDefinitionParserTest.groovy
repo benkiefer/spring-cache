@@ -58,7 +58,7 @@ class CachingBeanDefinitionParserTest extends BeanDefinitionParserTestCase {
                 <caches:caching>
                     <caches:standard id="cache1" name="myCache"/>
                     <caches:date-based-cache id="cache2" name="myOtherCache"
-                            timeUntilExpiration="5" unitOfMeasurement="12"/>
+                            timeUntilExpiration="5" unitOfMeasurement="MINUTES"/>
                 </caches:caching>
         """
 
@@ -77,7 +77,7 @@ class CachingBeanDefinitionParserTest extends BeanDefinitionParserTestCase {
                 <caches:caching>
                     <caches:standard id="cache1" name="myCache"/>
                     <caches:date-based-cache id="cache2" name="myOtherCache"
-                            timeUntilExpiration="5" unitOfMeasurement="12"/>
+                            timeUntilExpiration="5" unitOfMeasurement="MINUTES"/>
                 </caches:caching>
         """
 
@@ -98,7 +98,7 @@ class CachingBeanDefinitionParserTest extends BeanDefinitionParserTestCase {
                 <caches:caching>
                     <caches:cache-ref ref="cache1"/>
                     <caches:date-based-cache id="cache2" name="myOtherCache"
-                            timeUntilExpiration="5" unitOfMeasurement="12"/>
+                            timeUntilExpiration="5" unitOfMeasurement="MINUTES"/>
                 </caches:caching>
         """
 
