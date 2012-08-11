@@ -4,20 +4,12 @@ import org.junit.After
 import org.junit.Before
 import org.springframework.context.ApplicationContext
 import org.springframework.context.support.FileSystemXmlApplicationContext
+import org.springframework.context.support.GenericApplicationContext
+import org.springframework.context.support.GenericXmlApplicationContext
+import org.springframework.core.io.ByteArrayResource
 
 abstract class BeanDefinitionParserTestCase {
     ApplicationContext context
-    File file
-
-    @Before
-    void setUp() {
-        file = File.createTempFile("test", ".txt")
-    }
-
-    @After
-    void tearDown() {
-        file.delete()
-    }
 
     protected void prepareContext(String myValue) {
         def contextContent = """\
@@ -41,8 +33,8 @@ abstract class BeanDefinitionParserTestCase {
 
                </beans>
           """
-        file.text = contextContent
-        context = new FileSystemXmlApplicationContext(file.absolutePath)
+        context = new GenericXmlApplicationContext()
+        context.load(new ByteArrayResource(contextContent.toString().getBytes()))
     }
 }
 
