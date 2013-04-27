@@ -29,7 +29,7 @@ class MyServiceTest {
             assert 4 == myService.dateCacheNumberOfCharacters("blah")
         }
         def end = System.currentTimeMillis() - start
-        assert end < 1200
+        assert end < 1500
         println end
         assert countingListener.count == 1
     }
