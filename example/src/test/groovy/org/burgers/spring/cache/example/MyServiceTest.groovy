@@ -42,7 +42,7 @@ class MyServiceTest {
             assert 4 == myService.standardCacheNumberOfCharacters("blah")
         }
         def end = System.currentTimeMillis() - start
-        assert end < 700
+        assert end < 1300
         println end
         assert countingListener.count == 1
     }
@@ -56,7 +56,7 @@ class MyServiceTest {
         }
         def end = System.currentTimeMillis() - start
         println end
-        assert end < 2200
+        assert end < 2500
         assert countingListener.count == 25000
     }
 
