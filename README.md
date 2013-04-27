@@ -5,7 +5,7 @@
  - Includes EntryDateTrackingCache, an additional cache that will remove an item from the cache if it is expired.
  - Supported expiration values include: SECONDS, MINUTES, HOURS
 
-[![Build Status](https://secure.travis-ci.org/kingOburgers/spring-cache.png?branch=master)](http://travis-ci.org/kingOburgers/spring-cache)
+[![Build Status](https://secure.travis-ci.org/benkiefer/spring-cache.png?branch=master)](http://travis-ci.org/benkiefer/spring-cache)
 
 ##Usage Examples
 
