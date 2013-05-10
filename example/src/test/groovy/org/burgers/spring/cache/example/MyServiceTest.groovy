@@ -56,7 +56,7 @@ class MyServiceTest {
         }
         def end = System.currentTimeMillis() - start
         println end
-        assert end < 2500
+        assert end < 3000
         assert countingListener.count == 25000
     }
 
