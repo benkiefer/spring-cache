@@ -13,8 +13,7 @@
     <artifactId>spring-cache-parent</artifactId>
 
     <properties>
-        <groovy.version>1.8.6</groovy.version>
-        <gmaven.version>1.3</gmaven.version>
+        <groovy.version>2.1.3</groovy.version>
         <spring.version>3.1.1.RELEASE</spring.version>
     </properties>
 
@@ -41,7 +40,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.9</version>
+                <version>4.10</version>
             </dependency>
 
             <dependency>
@@ -50,11 +49,6 @@
                 <version>${groovy.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.codehaus.gmaven.runtime</groupId>
-                <artifactId>gmaven-runtime-1.7</artifactId>
-                <version>${gmaven.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -65,28 +59,27 @@
         <plugins>
 
             <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>gmaven-plugin</artifactId>
-                <version>${gmaven.version}</version>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-eclipse-compiler</artifactId>
+                <version>2.7.0-01</version>
+                <extensions>true</extensions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
                 <configuration>
-                    <source/>
-                    <providerSelection>1.7</providerSelection>
+                    <compilerId>groovy-eclipse-compiler</compilerId>
+                    <source>1.6</source>
+                    <target>1.6</target>
                 </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-all</artifactId>
-                        <version>${groovy.version}</version>
+                        <artifactId>groovy-eclipse-compiler</artifactId>
+                        <version>2.7.0-01</version>
                     </dependency>
                 </dependencies>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
         </plugins>

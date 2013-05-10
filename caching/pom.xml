@@ -35,19 +35,6 @@
                <artifactId>groovy-all</artifactId>
            </dependency>
 
-           <dependency>
-               <groupId>org.codehaus.gmaven.runtime</groupId>
-               <artifactId>gmaven-runtime-1.7</artifactId>
-           </dependency>
        </dependencies>
-
-       <build>
-           <plugins>
-               <plugin>
-                   <groupId>org.codehaus.gmaven</groupId>
-                   <artifactId>gmaven-plugin</artifactId>
-               </plugin>
-           </plugins>
-       </build>
 
 </project>
